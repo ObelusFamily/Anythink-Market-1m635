@@ -1,7 +1,8 @@
 version: "3.8"
 services:
-  backend:
+  anythink-backend:
     build: ./backend
+    container_name: anythink-backend
     command: sh -c "cd backend && yarn install && /wait-for-it.sh mongodb:27017 -q -t 60 && yarn dev"
 
     environment:
@@ -17,8 +18,9 @@ services:
     depends_on:
       - "mongodb"
 
-  frontend:
+  anythink-frontend:
     build: ./frontend
+    container_name: anythink-frontend
     command: sh -c "cd frontend && yarn install && yarn start"
     environment:
       - NODE_ENV=development
@@ -31,6 +33,7 @@ services:
       - "3001:3001"
 
   mongodb:
+    container_name: mongodb
     restart: always
     image: mongo
     logging:
